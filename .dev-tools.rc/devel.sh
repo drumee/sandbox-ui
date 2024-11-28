@@ -1,3 +1,4 @@
+# This file is used by @drumee/ui-dev-tools to sync app changes to the app server
 # There are three ways to update changes
 
 # On the same host 
@@ -12,3 +13,5 @@
 export BUILD_TARGET=app
 export PUBLIC_PATH=/app/
 export ENTRY_PAGE=/index.html
+
+# To watch changes, use `npm run dev`
