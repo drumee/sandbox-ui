@@ -1,0 +1,203 @@
+
+@import 'core';
+/**************** named colors ****************/
+/*green color variants   */
+$egreen                  : #18a3ac;
+$egreen-dark             : #16959e;
+$egreen-light            : #5DBEC4;
+$egreen-soft             : #18AC72;
+$egreen-watergreen       : #32d89a; 
+$egreen-soft-light       : #45CC97;
+
+/*green color variants */
+
+/*gray color variants */ 
+$egrey-3d                : #d3d3d3; 
+$egrey-d8                : #152235;
+$egrey-26                : #262626;
+$egrey-2f                : #2F2F2F;
+$egrey-3f                : #3F3F3F;
+$egrey-4a                : #4A4A4A;
+$egrey-49                : #494949;
+$egrey-6d                : #6D8096;
+$egrey-62                : #626262;
+$egrey-78                : #787B7F;     
+$egrey-89                : #89929E;
+$egrey-b6                : #B6BFCA;
+$egrey-3c                : #cecece;
+$egrey-b7                : #b7cedd;
+$egrey-f1                : #EFF0F1;
+$egrey-e8                : #DDE2E8;
+$egrey-d6                : #D6D6D6;
+$egrey-b8                : #b8b8b8;
+$egrey-8d                : #d8d8d8;
+$white-f2                : #f2f2f2;
+
+/*gray color variants */
+
+/*orange color variants */
+$eorange                 : #FA8540;
+$eorange-crusta          : #FA8A48;
+$eorange-light           : #F99B64;
+$eorange-dark            : #FF7479;
+$eorange-sunset          : #EA4D44;
+$orange-lighter          : #f87c59;
+$orange-carrot           : #EF6500;
+$orange-sunsetorange     : #fd635b;
+
+/*orange color variants */
+
+/*white color variants */
+$white 	                 : #FFFFFF;
+$ewhite                  : #FFFFFF;
+$white-fb                : #FBFBFB;
+$white-f2                : #F2F2F2;
+$white-f6                : #F1F1F6;
+$white-f7                : #F7F7F7;
+$white-f8                : #F8FAFC;
+$white-f9                : #F7F7F9;
+/*white color variants */
+
+/*violet color variants */
+$eviolet                 : #879BFF;
+$eviolet-dark            : #476390;
+$eviolet-light           : #6a85ff;
+/*violet color variants */
+
+/*mauve color variants*/
+$emauve                  :#C647D5;
+$emauve-light            :#E86CFF;
+$emauve-lighter          :#d66fe8;
+$emauve-dark             :#ab47bc;
+/*mauve color variants*/
+
+/*pink color variants */
+$drumee-pink             : #FF3466;
+$epink                   : #FF4578;
+/*pink color variants */
+
+/*blue color variants */
+$eblue                   : #4A90E2;
+$blue-midnight           : #000099;
+$ultramarine             : #1F0E93;
+$blue                    : #1D8AEA; //#1E81F9;
+$blue-light              : #68B4FF;//#57A7FF;
+/*blue color variants */
+
+/*red color variants */
+$red-brick               : #D23244;
+/*red color variants */
+
+
+/************************************************************
+                        NEW COLORS
+************************************************************/
+
+$drumee-pink    : #ff3466;
+$darker-pink    : #f32855;
+$navy-color     : #00495c;  /* main background*/
+
+/** main-colors **/
+$main-pink      : #d02c54;
+$gradient-left  : #004f64;
+$gradient-right : #0a6277;
+$main-blue      : #0089db;
+$main-green     : #00c0a8;
+$main-yellow    : #fdd835;
+/** main-colors **/
+
+/*additional-colors**/
+$add-pink       : $drumee-pink;
+$add-blue       : #329cf8;
+$add-green      : #04dec2;
+$add-grey       : #7d97a2;
+$add-light-grey : #b7cedd;
+$dark-blue      : #003e4f;
+$add-yellow     : #beba48;
+$add-soft-green : #008c14;
+$add-orange     : #e0984e;
+$add-soft-blue  : #00b1d0;
+/*additional-colors**/
+
+/**grey add colors**/
+$main-grey       : #787878;
+/**grey add colors**/
+
+/**insert block**/
+$main-bg        : $navy-color;  /* main bbackground*/
+$sharebox-main  : #ef6500;
+
+
+/** Customer **/
+$customer-header: #556e7f;
+
+$desk-scrollbar-color:rgba(250, 133, 64, 0.6);//rgb(250, 133, 64);
+$default-scrollbar-color :rgba(250, 133, 64, 0.6);
+$desk-scrollbar-color: $default-scrollbar-color;
+
+
+/**background**/ 
+$admin-default-background             : $core-default-background;
+$admin-default-background-hover       : $core-default-background-hover;
+$admin-background-header              : #18A3AC;
+$admin-default-block-background       : $core-default-block-background;
+$admin-default-background-error       : $core-default-background-error;
+$admin-transparency-container-overlay : $core-transparency-container-overlay;
+$admin-default-background-inactive    : $core-default-background-inactive;
+$admin-background-tooltips            : $core-background-tooltips;
+$admin-default-background-alert       : $core-default-background-alert;
+
+/**text**/
+$admin-default-text-color         : $core-default-text-color;
+$admin-secondary-text-color       : $core-secondary-text-color;
+$admin-default-text-reverse       : $core-default-text-reverse; 
+$admin-default-text-title         : $core-default-text-title;
+$admin-default-text-placeholder   : $core-default-text-placeholder;
+$admin-text-placeholder-focus     : $core-focus-text-placeholder;
+$admin-default-text-hover         : $core-default-text-hover;
+$admin-default-text-error         : $core-default-text-error ;
+$admin-default-text-caution       : $core-default-text-caution;
+$admin-default-text-alert         : $core-default-text-alert;
+$admin-default-text-inactive      : $core-default-text-inactive;
+$admin-backgroundless-text-hover  : $core-backgroundless-text-hover;
+$admin-tertiary-text-color        : $core-tertiary-text-color;
+$admin-default-text-success       : $core-default-text-success;
+$admin-default-text-tooltips	    : $core-default-text-tooltips;
+$admin-authorized-filter-text     : #494949;
+$admin-special-tag-color          : #18A3AC;//#bd44d9;
+$admin-text-title                 : $admin-default-text-title;//#18A3AC;
+
+/**icon**/
+$admin-default-icon-neutral            : $core-default-icon-neutral;
+$admin-default-icon-reverse            : $core-default-icon-reverse ;
+$admin-default-icon-active             : $core-default-icon-active;
+$admin-default-icon-hover              : $core-default-icon-hover;
+$admin-default-thinline-icon           : $core-default-thinline-icon; //close icon
+$admin-default-thinline-icon-hover     : $core-default-thinline-icon-hover; //close icon
+$admin-default-icon-success            : $core-default-icon-success;
+$admin-default-user-icon               : $core-default-user-icon;
+$admin-secondary-icon-color            : #4a90e2;
+//$admin-default-icon-menu-dropdown      : $core-default-icon-menu-dropdown; 
+
+$admin-default-checkbox-border         : $core-default-checkbox-border;
+$admin-default-checkbox-checked        : $core-default-checkbox-checked;
+$admin-default-checkbox-background     : $core-default-checkbox-background;
+$admin-checkbox-checked-reverse        : $core-checkbox-checked-reverse;
+$admin-checkbox-checked-border-reverse : $core-checkbox-checked-border-reverse;
+
+/**border**/
+$admin-default-entry-border-bottom  : $core-default-entry-border-bottom;
+$admin-default-border-error         : $core-default-border-error;
+$admin-focus-border-placeholder     : $core-focus-border-placeholder;
+$admin-default-separator            : $core-default-separator;
+$admin-default-border-success       : $core-default-border-success; 
+$admin-default-window-header-search	:	$core-default-window-header-search;
+$admin-default-frame                : $core-default-frame;
+//$admin-border-no-discussion         : $core-border-no-discussion ;
+
+
+/**toggle**/
+$admin-toggle-switch-on        : $core-toggle-switch-on ;
+$admin-toggle-switch-off       : $core-toggle-switch-off;
+$admin-toggle-switch-radio     : $core-toggle-switch-radio ;
+$admin-toggle-background       : $core-toggle-background ;
