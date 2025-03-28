@@ -19,7 +19,7 @@ function __skl_sandbox_app(_ui_) {
         className: `${_ui_.fig.family}__body`,
         debug: __filename,
         sys_pn: _a.content,
-        kids: require("./links")(_ui_)
+        //kids: require("./links")(_ui_)
       }),
       Skeletons.Wrapper.Y({
         className: `${_ui_.fig.family}__footer`,

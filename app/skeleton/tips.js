@@ -63,6 +63,11 @@ function __skl_sandbox_tips(_ui_) {
             className: `${_ui_.fig.family}__warning text`,
             content: LOCALE.SBX_LIMITATIONS.format(disk, team_call, private_hub, share_hub)
           }),
+          Skeletons.Note({
+            className: `${_ui_.fig.family}__warning text`,
+            content: LOCALE.POPUP_PERMISSION
+          }),
+
         ]
       }),
       Skeletons.Note({

@@ -1,6 +1,4 @@
-/* ======================================================== *
-*   Copyright xialia.com  2011-2021
-* ========================================================= */
+
 const { copyToClipboard } = Drumee.utils();
 class ___sandbox_app extends LetcBox {
 
@@ -56,6 +54,53 @@ class ___sandbox_app extends LetcBox {
         }
     }
   }
+
+
+  /**
+   * 
+   */
+  openLink(url, index) {
+    if (Visitor.device() == _a.mobile) {
+      window.open(url, "_blank", "noopener; noreferrer");
+    } else {
+      let w = Math.min(900, screen.availWidth - 100);
+      let h = Math.min(700, screen.availHeight - 100);
+      let x = 0;
+      let y = 0;
+      switch (index) {
+        case 1:
+          x = screen.availWidth - w;
+          break;
+        case 2:
+          y = screen.availHeight - h;
+          break;
+        case 3:
+          x = screen.availWidth - w;
+          y = screen.availHeight - h;
+          break;
+
+      }
+      let newWin = window.open(url, "_blank", `popup, noopener, noreferrer, width=${w}, height=${h}, left=${x}, top=${y}`);
+      if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
+        return false
+      }
+      return true;
+    }
+  }
+
+  /**
+   * 
+   * @param {*} t 
+   * @returns 
+   */
+  wait(t = 1000) {
+    return new Promise((will, wont) => {
+      setTimeout(() => {
+        will()
+      }, t)
+    })
+  }
+
   /**
    * 
    */
@@ -67,7 +112,8 @@ class ___sandbox_app extends LetcBox {
         socket_id: Visitor.get(_a.socket_id)
       }
     }
-    this.postService("sandbox.create", opt).then((users) => {
+    let { svc } = bootstrap();
+    this.postService("sandbox.create", opt).then(async (users) => {
       if (!users) {
         this.warn("NO_USER");
         return;
@@ -79,6 +125,17 @@ class ___sandbox_app extends LetcBox {
       if (!users[0]) {
         this.handleError({ error: LOCALE.SOMETHING_WENT_WRONG });
         return;
+      }
+      let popup;
+      let i = 0;
+      for (let u of users) {
+        this.debug("SATRTING USER", u)
+        const { token, domain, uid } = u;
+        const url = `https://${domain}${svc}sandbox.load?token=${token}&keysel=${uid}`;
+        await this.wait();
+        i++;
+        popup = this.openLink(url, i);
+        this.debug("USER", u, url, popup)
       }
       this.users = users;
       localStorage.setItem('sandboxDomain', users[0].domain);
@@ -107,15 +164,15 @@ class ___sandbox_app extends LetcBox {
       token
     }
     Butler.confirm(LOCALE.DELETE_PERMENANTLY).then(() => {
-      this.postService('sandbox.remove', opt).then((r) => {
+      this.postService('sandbox.remove', opt).then(async (r) => {
         localStorage.removeItem('sandboxDomain');
         this.feed(require('./skeleton/thanks')(this));
       }).catch((e) => {
         this.debug("AAA:128", e)
-        this.handleError({error:LOCALE.SOMETHING_WENT_WRONG})
+        this.handleError({ error: LOCALE.SOMETHING_WENT_WRONG })
       })
     }).catch(() => {
-      this.handleError({error:LOCALE.SOMETHING_WENT_WRONG})
+      this.handleError({ error: LOCALE.SOMETHING_WENT_WRONG })
     })
   }
 
@@ -281,7 +338,8 @@ class ___sandbox_app extends LetcBox {
    * @param {String} service
    * @param {Object} options
    */
-  websocketRoute(service, data, options) {
+  onWsMessage(service, data, options) {
+    this.debug("AAA:342", service, data, options)
     switch (service) {
       case "sandbox.progress":
         let { total, progress } = data;
@@ -291,6 +349,9 @@ class ___sandbox_app extends LetcBox {
           this.__footer.el.dataset.state = _a.closed;
           this.__progress.el.style.width = 0;
           this.__footer.clear();
+          if(data.type == _a.remove){
+            location.reload()
+          }
         }
         break;
     }

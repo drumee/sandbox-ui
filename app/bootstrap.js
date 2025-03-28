@@ -15,7 +15,7 @@ async function preloadKinds() {
  * @param {*} e 
  */
 async function start(e) {
-  console.log(`Loading Sandbox`);
+  console.log(`Loading Sandbox 21`);
   document.removeEventListener('drumee:ready', start);
   let el = document.getElementById("loader-spinner");
   el && el.remove();

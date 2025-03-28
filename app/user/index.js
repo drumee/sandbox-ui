@@ -74,6 +74,11 @@ class ___sandbox_user extends LetcBox {
     this.feed(require('./skeleton')(this));
   }
 
+  /**
+   * 
+   * @param {*} child 
+   * @param {*} pn 
+   */
   onPartReady(child, pn) {
     switch (pn) {
       case 'qr-code':
@@ -83,6 +88,16 @@ class ___sandbox_user extends LetcBox {
         })
         break;
     }
+  }
+
+  /**
+   * 
+   * @param {*} service 
+   * @param {*} data 
+   * @param {*} options 
+   */
+  onWsMessage(service, data, options = {}) {
+    this.debug("onWsMessage ", service, data, options, this);
   }
 
   /**

@@ -54,6 +54,7 @@
     "webpack-stats-plugin": "^1.1.1"
   },
   "dependencies": {
+    "@drumee/ui-dev-tools": "^1.0.11",
     "qrcode": "^1.5.3"
   }
 }

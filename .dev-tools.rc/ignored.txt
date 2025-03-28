@@ -1,4 +1,0 @@
-.git/
-*.swp
-stats.json
-.dev-tools.rc/

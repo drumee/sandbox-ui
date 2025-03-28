@@ -11,4 +11,4 @@ kind/seeds/dynamic.js
 *_tmp*
 ._*
 t
-package-lock.json
+.dev-tools.rc
