@@ -237,6 +237,10 @@ class ___sandbox_app extends LetcBox {
       if (users && users.length) {
         this.feed(require('./skeleton/existing')(this, users));
       } else {
+        if (!sandboxEmail && !force) {
+          this.feed(require('./skeleton/welcome')(this));
+          return
+        }
         this.feed(require('./skeleton/maiden')(this));
       }
     }).catch(() => {

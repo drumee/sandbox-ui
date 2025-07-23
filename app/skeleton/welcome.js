@@ -87,7 +87,7 @@ module.exports = function (ui, error) {
       }),
       Skeletons.Note({
         className: `${ui.fig.family}__welcome text`,
-        content: welcome(Visitor.language()),
+        content: welcome(ui.mget('lang')),
       }),
       entry(ui, { name: "email", placeholder: LOCALE.ENTER_EMAIL })
     ]
