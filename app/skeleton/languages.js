@@ -36,7 +36,8 @@ const __account_languages = function (_ui_) {
     className: `${pfx}__menu-container`,
     kids: [{
       kind: KIND.menu.topic,
-      className: `${pfx}__menu-ui`,
+      className: `${pfx}__menu-ui shadow-xl`,
+      itemsClass: "shadow-xl",
       flow: _a.y,
       opening: _e.click,
       persistence: _a.once,

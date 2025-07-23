@@ -6,31 +6,40 @@
 
 /**
  * 
- * @param {*} _ui_ 
+ * @param {*} ui 
  * @returns 
  */
 
-function __skl_sandbox_app(_ui_) {
+function __skl_sandbox_app(ui) {
   const opt = {
     service: _e.start,
     content: LOCALE.SBX_START
   }
   const a = Skeletons.Box.Y({
-    className: `${_ui_.fig.family}__main`,
+    className: `${ui.fig.family}__main`,
     kids: [
+      Skeletons.Box.X({
+        className: `${ui.fig.family}__welcome-logo header`,
+        kids: [
+          Skeletons.Image.Smart({
+            className: `${ui.fig.family}__welcome-logo`,
+            src: `/images/drumee-logo.png`,
+          }),
+        ]
+      }),
       Skeletons.Box.Y({
-        className: `${_ui_.fig.family}__body`,
+        className: `${ui.fig.family}__body`,
         debug: __filename,
         sys_pn: _a.content,
-        kids: require("./tips")(_ui_)
+        kids: require("./tips")(ui)
       }),
       Skeletons.Wrapper.Y({
-        className: `${_ui_.fig.family}__footer`,
+        className: `${ui.fig.family}__footer`,
         sys_pn: "footer",
         dataset: {
           state: _a.closed
         },
-        kids: require("./launch-pad")(_ui_, opt)
+        kids: require("./launch-pad")(ui, opt)
       })
     ]
   })

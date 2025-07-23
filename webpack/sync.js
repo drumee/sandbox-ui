@@ -28,9 +28,12 @@ class DrumeeSyncer {
           html = String(html).trim().toString();
           let { hash } = stats;
           let dest = join(bundle_base, entry_page);
+          console.log("Writing entry page to", dest);
           let data = template(html)({ hash });
           fsWriteFile(dest, data)
-        }  
+        }else{
+          console.warn("Entry page template was not found", tpl);
+        }
       }
       this.get_hash(stats);
 

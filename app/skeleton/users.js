@@ -37,7 +37,7 @@ function __skl_sandbox_domain(_ui_, kids) {
         }),
         Skeletons.Note({
           className: `${_ui_.fig.family}__text domain-name`,
-          content: localStorage.getItem('sandboxDomain') || "No domain yet"
+          content: "Sandbow domain name: " + localStorage.getItem('sandboxDomain')
         }),
         Skeletons.Note({
           className: `${_ui_.fig.family}__users-list`,

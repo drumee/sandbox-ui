@@ -5,74 +5,88 @@
 // =========================================================**/
 const { filesize } = Drumee.utils();
 
-function tips(_ui_, key) {
+function tips(ui, key, icon) {
   let title = LOCALE[key];
   let text = LOCALE[`${key}_TIPS`]
   return Skeletons.Box.Y({
-    className: `${_ui_.fig.family}__tips container`,
+    className: `${ui.fig.family}__tips container`,
     kids: [
+      Skeletons.Element({
+        tagName: `i`,
+        dataset: { lucide: icon },
+      }),
       Skeletons.Note({
-        className: `${_ui_.fig.family}__tips title`,
+        className: `${ui.fig.family}__tips title`,
         content: title
       }),
       Skeletons.Note({
-        className: `${_ui_.fig.family}__tips text`,
+        className: `${ui.fig.family}__tips text`,
         content: text
       }),
     ]
   })
 }
+
+function limitations(ui, text) {
+  return Skeletons.Box.Y({
+    className: `${ui.fig.family}__tips container`,
+    kids: [
+      Skeletons.Note({
+        className: `text`,
+        content: text
+      }),
+    ]
+  })
+}
+
 /**
  * 
- * @param {*} _ui_ 
+ * @param {*} ui 
  * @returns 
  */
 
-function __skl_sandbox_tips(_ui_) {
-  let { private_hub, share_hub, team_call, disk } = _ui_.quota || {};
+function __skl_sandbox_tips(ui) {
+  let { private_hub, share_hub, team_call, disk } = ui.quota || {};
   disk = filesize(disk);
   team_call = Dayjs.duration(team_call, 'seconds').$d.minutes;
 
   const a = Skeletons.Box.Y({
-    className: `${_ui_.fig.family}__container`,
+    className: `${ui.fig.family}__container`,
     kids: [
-      require("./languages")(_ui_),
+      require("./languages")(ui),
       Skeletons.Note({
-        className: `${_ui_.fig.family}__main-title`,
+        className: `${ui.fig.family}__main-title`,
         content: LOCALE.SBX_INTRO_TITLE
       }),
       Skeletons.Note({
-        className: `${_ui_.fig.family}__main-text`,
+        className: `${ui.fig.family}__main-text`,
         content: LOCALE.SBX_INTRO_SUBTITLE
       }),
-      tips(_ui_, "SBX_FILE_MANAGER"),
-      tips(_ui_, "SBX_INTERNAL_SHARE"),
-      tips(_ui_, "SBX_EXTERNAL_SHARE"),
-      Skeletons.Box.Y({
-        className: `${_ui_.fig.family}__warning container`,
+      Skeletons.Box.G({
+        className: `${ui.fig.family}__features container`,
         kids: [
-          Skeletons.Note({
-            className: `${_ui_.fig.family}__warning title`,
-            content: LOCALE.WARNING
-          }),
-          Skeletons.Note({
-            className: `${_ui_.fig.family}__warning text`,
-            content: LOCALE.SBX_USAGE_TIPS
-          }),
-          Skeletons.Note({
-            className: `${_ui_.fig.family}__warning text`,
-            content: LOCALE.SBX_LIMITATIONS.format(disk, team_call, private_hub, share_hub)
-          }),
-          Skeletons.Note({
-            className: `${_ui_.fig.family}__warning text`,
-            content: LOCALE.POPUP_PERMISSION
-          }),
+          tips(ui, "SBX_FILE_MANAGER", "Database"),
+          tips(ui, "SBX_INTERNAL_SHARE", "Lock"),
+          tips(ui, "SBX_EXTERNAL_SHARE", "Globe"),
+        ]
+      }),
+      Skeletons.Note({
+        className: `${ui.fig.family}__warning title`,
+        content: LOCALE.WARNING
+      }),
+      Skeletons.Box.Y({
+        className: `${ui.fig.family}__limitations container`,
+        kids: [
+          limitations(ui, LOCALE.SBX_USAGE_TIPS),
+          limitations(ui, LOCALE.SBX_LIMITATIONS.format(disk, team_call, private_hub, share_hub)),
+          limitations(ui, LOCALE.PERMISSION_REMINDER)
 
         ]
       }),
       Skeletons.Note({
-        className: `${_ui_.fig.family}__main-text usage-condition`,
-        content: LOCALE.SBX_ACCEPT_CONDITIONS
+        className: `${ui.fig.family}__main-text usage-condition`,
+        content: LOCALE.SBX_ACCEPT_CONDITIONS,
+        sys_pn: "usage-condition"
       }),
     ]
   });

@@ -6,17 +6,19 @@
 
 /**
  * 
- * @param {*} _ui_ 
+ * @param {*} ui 
  * @returns 
  */
 
-module.exports = function (_ui_, opt = {}) {
+module.exports = function (ui, opt = {}) {
   const { service, content } = opt;
   const a = Skeletons.Box.Y({
-    className: `${_ui_.fig.family}__launch-pad`,
+    className: `${ui.fig.family}__launch-pad`,
+    service,
+    uiHandler: [ui],
     kids: [
       Skeletons.Wrapper.Y({
-        className: `${_ui_.fig.family}__launch-pad-button`,
+        className: `${ui.fig.family}__launch-pad-button`,
         sys_pn: 'launch-pad-button',
         kids: [
           Skeletons.Note({
@@ -26,7 +28,9 @@ module.exports = function (_ui_, opt = {}) {
             sys_pn: "progress"
           }),
           Skeletons.Note({
-            className: `text`,
+            uiHandler: [ui],
+            active: 1,
+            className: `text button transition-colors bg-secondary text-secondary-foreground`,
             content,
             service,
             sys_pn: "launcher",

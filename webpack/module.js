@@ -1,14 +1,15 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-module.exports = function(includePaths, mode){
+const { resolve } = require('path')
+module.exports = function (basedir, mode) {
   let production = /^prod/.test(mode);
   a = {
     rules: [{
       test: /\.(sa|sc|c)ss$/,
 
       use: [
-        production ? MiniCssExtractPlugin.loader : "style-loader",
+        //production ? MiniCssExtractPlugin.loader : "style-loader",
         //MiniCssExtractPlugin.loader,
+        "style-loader",
         {
           loader: 'css-loader',
           options: {
@@ -16,42 +17,45 @@ module.exports = function(includePaths, mode){
             importLoaders: true,
             url: false
           },
-        },{
+        }, {
           loader: 'postcss-loader',
-          options:{
+          options: {
             sourceMap: true, // Show resource full path
           }
-        },{
+        }, {
           loader: 'sass-loader',
-          options:{
+          options: {
             sourceMap: true,
+            api: "modern",
             sassOptions: {
               sourceMap: true,
               sourceMapEmbed: true,
-              includePaths
+              // loadPaths: [
+              //   resolve(__dirname, '..', 'skin')
+              // ]
             }
           }
         }
       ],
-    },{
+    }, {
       test: /\.coffee$/,
       use: ["coffee-loader"],
-    },{
+    }, {
       test: /\.(png|jpg|gif|jpeg)$/,
       use: ["file-loader"]
-    },{
+    }, {
       test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
       use: ['url-loader']
-    },{
+    }, {
       test: /babel(.*)\.js?$/,
       use: ['babel-loader']
-    },{
+    }, {
       test: /\.(txt|text)$/i,
       use: ['raw-loader']
-    },{
+    }, {
       test: /\.tpl$/,
       use: ['underscore-template-loader']
-    },{
+    }, {
       test: /\.tsx?$/,
       use: 'ts-loader',
       exclude: /node_modules/,

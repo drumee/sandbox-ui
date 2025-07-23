@@ -22,7 +22,6 @@ const {
  * @returns 
  */
 function makeOptions(entry, opt) {
-
   let output = {
     path: opt.bundle_path,
     publicPath: opt.public_path,
@@ -108,7 +107,7 @@ function normalize() {
     src_path: UI_SRC_PATH,
     target,
     mode,
-    entry_page:ENTRY_PAGE
+    entry_page: ENTRY_PAGE
     //statics: ["index.html"]
   };
   if (OUTPUT_FILENAME == "[name].js") {
@@ -119,7 +118,19 @@ function normalize() {
 
 
 module.exports = function () {
-  const opt = normalize();
-  const bootstrap = join(UI_SRC_PATH, 'app', 'bootstrap.js');
-  return makeOptions({ bootstrap }, opt);
+  return import('@unocss/webpack').then(({ default: UnoCSS }) => {
+    const opt = normalize();
+    opt.UnoCSS = UnoCSS;
+    const bootstrap = join(UI_SRC_PATH, 'app', 'bootstrap.js');
+    let res = makeOptions({ bootstrap }, opt);
+    if (res.optimization) {
+      res.optimization.realContentHash = true
+    } else {
+      res.optimization = {
+        realContentHash: true
+      }
+    }
+    return res;
+  })
+
 }

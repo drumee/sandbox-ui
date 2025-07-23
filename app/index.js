@@ -1,5 +1,21 @@
 
 const { copyToClipboard } = Drumee.utils();
+let Lucide = {};
+const ICONS = [
+  "Menu",
+  "ArrowRight",
+  "Globe",
+  "Check",
+  "Box",
+  "Shield",
+  "FileJson",
+  "Database",
+  "Server",
+  "Share",
+  "Lock",
+  "LockKeyhole",
+]
+
 class ___sandbox_app extends LetcBox {
 
   /**
@@ -7,6 +23,7 @@ class ___sandbox_app extends LetcBox {
    */
   initialize(opt = {}) {
     require('./skin');
+    require('./skin/tw.css');
     super.initialize(opt);
     this.declareHandlers();
     const lang = require('./locale')(Visitor.language());
@@ -204,8 +221,15 @@ class ___sandbox_app extends LetcBox {
   /**
    * 
    */
-  reload() {
+  reload(force = 0) {
+    const sandboxEmail = localStorage.getItem('sandboxEmail');
     const domain = localStorage.getItem('sandboxDomain');
+    if (!domain) {
+      if (!sandboxEmail && !force) {
+        this.feed(require('./skeleton/welcome')(this));
+        return
+      }
+    }
     this.fetchService('sandbox.get_env', { domain }).then((r) => {
       const { quota, users } = r;
       this.users = users;
@@ -226,7 +250,15 @@ class ___sandbox_app extends LetcBox {
    */
   onDomRefresh() {
     this.bindEvent("live", "sandbox");
-    this.reload()
+    import('lucide').then(async (e) => {
+      for (let k of ICONS) {
+        if (e && e[k]) Lucide[k] = e[k]
+      }
+      let { createIcons } = e;
+      this.reload()
+      await this.ensurePart('usage-condition') /** Wait the last element to be rendered before creating icons */
+      createIcons({ icons: Lucide })
+    })
   }
 
   /**
@@ -245,11 +277,48 @@ class ___sandbox_app extends LetcBox {
   }
 
   /**
+   * 
+   * @param {*} email 
+   */
+  async _subscribe() {
+    let email = await this._checkEmail()
+    if (!email) {
+      return
+    }
+
+    this.postService("sandbox.subscribe_me", { email }).then(() => {
+      localStorage.setItem('sandboxEmail', email)
+      this.reload(1);
+    }).catch((e) => {
+      this.warn("Got server error", e)
+      this.feed(require('./skeleton/error')(this, LOCALE.ERROR_SERVER));
+    })
+  }
+
+  /**
+   * 
+   */
+  async _checkEmail(reset = 0) {
+    let email = await this.ensurePart(_a.email);
+    if (reset) {
+      email.el.dataset.error = 0;
+      return;
+    }
+    let str = email.getValue();
+    if (!str || !str.isEmail()) {
+      email.el.dataset.error = 1;
+      return ""
+    }
+    email.el.dataset.error = 0;
+    return str;
+  }
+
+  /**
    * User Interaction Evant Handler
    * @param {View} cmd
    * @param {Object} args
    */
-  onUiEvent(cmd, args = {}) {
+  async onUiEvent(cmd, args = {}) {
     const service = args.service || cmd.get(_a.service);
     const { url } = args;
     let xOffset = 0;
@@ -258,19 +327,44 @@ class ___sandbox_app extends LetcBox {
       case _a.start:
         this.start(cmd);
         break;
+
       case _a.copy:
         copyToClipboard(url);
         break;
+
+      case _a.input:
+        switch (cmd.status) {
+          case "blur":
+            await this._checkEmail();
+            break;
+          case "Enter":
+            this._subscribe()
+            break;
+          default:
+            this._checkEmail(1);
+        }
+        return;
+
       case "show-qr-code":
         xOffset = 70;
         timeout = 60000;
         this.showQrCode(url);
         break;
+
       case "processing":
         cmd.set({
           content: LOCALE.PROCESSING,
         })
         return;
+
+      case "subscribe":
+        this._subscribe()
+        return;
+
+      case "try-only":
+        this.reload(1);
+        return;
+
       case _a.close:
         this.__message && this.__message.clear();
         return;
@@ -349,7 +443,7 @@ class ___sandbox_app extends LetcBox {
           this.__footer.el.dataset.state = _a.closed;
           this.__progress.el.style.width = 0;
           this.__footer.clear();
-          if(data.type == _a.remove){
+          if (data.type == _a.remove) {
             location.reload()
           }
         }
