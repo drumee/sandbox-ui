@@ -5,15 +5,15 @@
 // =========================================================**/
 const { filesize } = Drumee.utils();
 
-function tips(ui, key, icon) {
+function tips(ui, key, ico) {
   let title = LOCALE[key];
   let text = LOCALE[`${key}_TIPS`]
   return Skeletons.Box.Y({
     className: `${ui.fig.family}__tips container`,
     kids: [
-      Skeletons.Element({
-        tagName: `i`,
-        dataset: { lucide: icon },
+      Skeletons.Button.Svg({
+        className: `${ui.fig.family}__tips icon`,
+        ico,
       }),
       Skeletons.Note({
         className: `${ui.fig.family}__tips title`,
@@ -65,9 +65,9 @@ function __skl_sandbox_tips(ui) {
       Skeletons.Box.G({
         className: `${ui.fig.family}__features container`,
         kids: [
-          tips(ui, "SBX_FILE_MANAGER", "Database"),
-          tips(ui, "SBX_INTERNAL_SHARE", "Lock"),
-          tips(ui, "SBX_EXTERNAL_SHARE", "Globe"),
+          tips(ui, "SBX_FILE_MANAGER", "folder"),
+          tips(ui, "SBX_INTERNAL_SHARE", "desktop_mysharing"),
+          tips(ui, "SBX_EXTERNAL_SHARE", "desktop_sharing"),
         ]
       }),
       Skeletons.Note({

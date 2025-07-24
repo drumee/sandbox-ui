@@ -6,12 +6,10 @@
 @use 'colors';
 @use 'welcome';
 
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
-// @use "tailwindcss";
-// @use "tailwindcss/components";
-// @use "tailwindcss/utilities";
+.drumee-router__main {
+  height: auto;
+}
+
 .sandbox-app {
   &__ui {
     background-color: white;
@@ -99,6 +97,12 @@
 
     &.container {
       margin: 10px 0;
+    }
+
+    &.icon {
+      color:#535cc8;
+      width: 17px;
+      height: 17px;
     }
 
     &.title {

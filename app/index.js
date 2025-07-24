@@ -1,20 +1,20 @@
 
 const { copyToClipboard } = Drumee.utils();
-let Lucide = {};
-const ICONS = [
-  "Menu",
-  "ArrowRight",
-  "Globe",
-  "Check",
-  "Box",
-  "Shield",
-  "FileJson",
-  "Database",
-  "Server",
-  "Share",
-  "Lock",
-  "LockKeyhole",
-]
+// let Lucide = {};
+// const ICONS = [
+//   "Menu",
+//   "ArrowRight",
+//   "Globe",
+//   "Check",
+//   "Box",
+//   "Shield",
+//   "FileJson",
+//   "Database",
+//   "Server",
+//   "Share",
+//   "Lock",
+//   "LockKeyhole",
+// ]
 
 class ___sandbox_app extends LetcBox {
 
@@ -123,12 +123,17 @@ class ___sandbox_app extends LetcBox {
    */
   start(cmd) {
     let opt = {};
-    if (localStorage.getItem('sandboxDomain')) {
+    let domain = localStorage.getItem('sandboxDomain')
+    if (domain) {
       opt = {
-        domain: localStorage.getItem('sandboxDomain'),
+        domain,
+        email: `nobody@${domain}`,
         socket_id: Visitor.get(_a.socket_id)
       }
+    } else {
+      opt.email = localStorage.getItem('sandboxEmail') || "nobody@no-domain"
     }
+    this.debug("AAAA:134", opt)
     let { svc } = bootstrap();
     this.postService("sandbox.create", opt).then(async (users) => {
       if (!users) {
@@ -183,6 +188,7 @@ class ___sandbox_app extends LetcBox {
     Butler.confirm(LOCALE.DELETE_PERMENANTLY).then(() => {
       this.postService('sandbox.remove', opt).then(async (r) => {
         localStorage.removeItem('sandboxDomain');
+        localStorage.removeItem('sandboxEmail');
         this.feed(require('./skeleton/thanks')(this));
       }).catch((e) => {
         this.debug("AAA:128", e)
@@ -254,15 +260,16 @@ class ___sandbox_app extends LetcBox {
    */
   onDomRefresh() {
     this.bindEvent("live", "sandbox");
-    import('lucide').then(async (e) => {
-      for (let k of ICONS) {
-        if (e && e[k]) Lucide[k] = e[k]
-      }
-      let { createIcons } = e;
-      this.reload()
-      await this.ensurePart('usage-condition') /** Wait the last element to be rendered before creating icons */
-      createIcons({ icons: Lucide })
-    })
+    this.reload()
+    // import('lucide').then(async (e) => {
+    //   for (let k of ICONS) {
+    //     if (e && e[k]) Lucide[k] = e[k]
+    //   }
+    //   let { createIcons } = e;
+    //   this.reload()
+    //   await this.ensurePart('usage-condition') /** Wait the last element to be rendered before creating icons */
+    //   createIcons({ icons: Lucide })
+    // })
   }
 
   /**
@@ -443,6 +450,7 @@ class ___sandbox_app extends LetcBox {
         let { total, progress } = data;
         let r = 100 * progress / total;
         this.__progress.el.style.width = `${r}%`;
+        this.debug("AAA:452", r, service)
         if (r > 99) {
           this.__footer.el.dataset.state = _a.closed;
           this.__progress.el.style.width = 0;
