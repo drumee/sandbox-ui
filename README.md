@@ -34,7 +34,7 @@ npm run deploy     # production build and deploy
 ```
 
 You need a Drumee runtime to talk to — see the
-[Starter Kit](https://github.com/drumee/starter-kit).
+[getting-started guides](https://docs.drumee.com/getting-started).
 
 ## Contributing
 
